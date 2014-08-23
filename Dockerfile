@@ -40,6 +40,6 @@ WORKDIR $GOPATH/src
 RUN go get github.com/kr/godep
 PORT=8080
 RUN mkdir -p /app/bin
-ENV HOME /app
+#ENV HOME /app
 #RUN echo 'export GOPATH=/go' >> /app/.bash_profile
 #RUN echo 'export PATH=$PATH:$GOPATH/bin'  >> $HOME/.bash_profile
