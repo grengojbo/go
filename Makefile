@@ -1,15 +1,20 @@
+IMAGE=grengojbo/go
+
 all: build
 
 build:
-	docker build -t grengojbo/base .
+	docker build -t $IMAGE .
 
 shell:
-	docker run -it --rm grengojbo/base /bin/bash
+	docker run -it --rm $IMAGE /bin/bash
 
 clean:
-	docker rmi grengojbo/base
+	docker rmi $IMAGE
 
 push:
-	@docker push grengojbo/base
+	@docker push $IMAGE
 
-.PHONY: all clean shell build
+pull:
+	@docker pull $IMAGE
+
+.PHONY: all clean shell build push pull

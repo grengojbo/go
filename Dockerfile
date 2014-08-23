@@ -1,16 +1,15 @@
-# BeeGo APP base host
+# Golang base host
 #
 # VERSION               0.0.1
 
-FROM     ubuntu:14.04
+FROM     grengojbo/base:latest
 MAINTAINER Oleg Dolya "oleg.dolya@gmail.com"
 
 # Install software
-#RUN apt-get install --no-install-recommends -y ssh strace tcpdump nmap traceroute nload psmisc procps subversion file vim less bind9-host tmux
 RUN apt-get update && apt-get install --no-install-recommends -yq \
         autoconf \
         build-essential \
-        procps bison ca-certificates curl
+        procps curl
 
 RUN apt-get update && apt-get install --no-install-recommends -yq \
         bzr \
@@ -38,3 +37,9 @@ RUN curl -sk https://storage.googleapis.com/golang/go1.3.src.tar.gz | tar -C $GO
 RUN cd /usr/local/go/src && ./make.bash --no-clean 2>&1
 
 WORKDIR $GOPATH/src
+RUN go get github.com/kr/godep
+PORT=8080
+RUN mkdir -p /app/bin
+ENV HOME /app
+#RUN echo 'export GOPATH=/go' >> /app/.bash_profile
+#RUN echo 'export PATH=$PATH:$GOPATH/bin'  >> $HOME/.bash_profile
