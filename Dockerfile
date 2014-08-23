@@ -1,6 +1,6 @@
 # Golang base host
 #
-# VERSION               0.0.1
+# VERSION               0.0.3
 
 FROM     grengojbo/base:latest
 MAINTAINER Oleg Dolya "oleg.dolya@gmail.com"
@@ -38,7 +38,7 @@ RUN cd /usr/local/go/src && ./make.bash --no-clean 2>&1
 
 WORKDIR $GOPATH/src
 RUN go get github.com/kr/godep
-PORT=8080
+ENV PORT=8080
 RUN mkdir -p /app/bin
 #ENV HOME /app
 #RUN echo 'export GOPATH=/go' >> /app/.bash_profile
