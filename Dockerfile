@@ -1,6 +1,6 @@
 # Golang base host
 #
-# VERSION               0.0.3
+# VERSION               0.1.3
 
 FROM     grengojbo/base:latest
 MAINTAINER Oleg Dolya "oleg.dolya@gmail.com"
@@ -29,7 +29,7 @@ ENV GOROOT /usr/local/go
 RUN mkdir -p $GOROOT
 ENV GOPATH /go
 RUN mkdir -p $GOPATH
-mkdir -p $GOPATH/src
+RUN mkdir -p $GOPATH/src
 ENV PATH $GOROOT/bin:$GOPATH/bin:$PATH
 
 # install go
@@ -38,7 +38,7 @@ RUN cd /usr/local/go/src && ./make.bash --no-clean 2>&1
 
 WORKDIR $GOPATH/src
 RUN go get github.com/kr/godep
-ENV PORT=8080
+ENV PORT 8080
 RUN mkdir -p /app/bin
 #ENV HOME /app
 #RUN echo 'export GOPATH=/go' >> /app/.bash_profile
