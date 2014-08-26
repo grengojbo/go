@@ -1,6 +1,6 @@
 # Golang base host
 #
-# VERSION               0.1.3
+# VERSION               0.1.4
 
 FROM     grengojbo/base:latest
 MAINTAINER Oleg Dolya "oleg.dolya@gmail.com"
@@ -9,20 +9,12 @@ MAINTAINER Oleg Dolya "oleg.dolya@gmail.com"
 RUN apt-get update && apt-get install --no-install-recommends -yq \
         autoconf \
         build-essential \
-        procps curl
-
-RUN apt-get update && apt-get install --no-install-recommends -yq \
+        procps \
         bzr \
         cvs \
         git \
         mercurial \
-        subversion
-
-RUN apt-get -y autoremove
-RUN apt-get -y autoclean
-RUN apt-get -y clean
-
-ADD bash_aliases /root/.bash_aliases
+        subversion && apt-get -y autoremove && apt-get -y autoclean && apt-get -y clean
 
 # prepare go environment
 ENV GOROOT /usr/local/go
@@ -33,8 +25,8 @@ RUN mkdir -p $GOPATH/src
 ENV PATH $GOROOT/bin:$GOPATH/bin:$PATH
 
 # install go
-RUN curl -sk https://storage.googleapis.com/golang/go1.3.src.tar.gz | tar -C $GOROOT -xzf - --strip-components 1
-RUN cd /usr/local/go/src && ./make.bash --no-clean 2>&1
+RUN curl -sk https://storage.googleapis.com/golang/go1.3.src.tar.gz | tar -C $GOROOT -xzf - --strip-components 1 \
+  && /usr/local/go/src && ./make.bash --no-clean 2>&1 && rm -Rf /usr/local/go/src
 
 WORKDIR $GOPATH/src
 RUN go get github.com/kr/godep
