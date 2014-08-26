@@ -26,7 +26,7 @@ ENV PATH $GOROOT/bin:$GOPATH/bin:$PATH
 
 # install go
 RUN curl -sk https://storage.googleapis.com/golang/go1.3.src.tar.gz | tar -C $GOROOT -xzf - --strip-components 1 \
-  && /usr/local/go/src && ./make.bash --no-clean 2>&1
+  && cd /usr/local/go/src && ./make.bash --no-clean 2>&1 && rm -Rf /usr/local/go/src
 
 WORKDIR $GOPATH/src
 RUN go get github.com/kr/godep
